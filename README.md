@@ -71,3 +71,59 @@ Criar um site institucional para exibir produtos de uma loja, organizados por ca
 --- 
 
 **Resultado Esperado:** Site funcional, de fácil manutenção, que permita ao cliente explorar produtos e fechar pedidos de forma ágil via WhatsApp.
+
+---
+## Tecnologia
+### Client
+- **Vite.js**
+### Backend as a Service (BaaS)
+- **Supabase**
+
+**Vantagens do BaaS**
+- Rede de Infraestrutura: Você não precisa se preocupar com a configuração de servidores e escalabilidade.
+
+- Economia de Tempo: As funcionalidades são prontamente disponíveis, permitindo que você se concentre mais na lógica do seu aplicativo.
+  
+- Escalabilidade: A maioria das plataformas BaaS lida automaticamente com a escalabilidade, permitindo que o seu aplicativo cresça sem reconfigurações complexas.
+- Segurança: Recursos integrados para autenticação, proteção de dados e gerenciamento de usuários.
+---
+## Estrutura do projeto
+
+```Plaintext
+/loja-institucional
+├── /public
+│   ├── favicon.ico            # Ícone do site
+│   └── index.html             # Arquivo HTML principal
+├── /src
+│   ├── /assets                 # Imagens, ícones e outros recursos estáticos
+│   │   ├── /images             # Imagens do site
+│   │   └── /icons              # Ícones (por exemplo, do FontAwesome)
+│   ├── /components             # Componentes reutilizáveis
+│   │   ├── Button.vue          # Botão personalizado
+│   │   ├── ProductCard.vue     # Cartão de produto
+│   │   ├── CartModal.vue       # Modal do carrinho de compras
+│   │   └── Header.vue          # Cabeçalho do site
+│   ├── /views                  # Páginas do site
+│   │   ├── Home.vue            # Página inicial
+│   │   ├── Products.vue        # Página de listagem de produtos
+│   │   ├── ProductDetail.vue    # Página de detalhes do produto
+│   │   └── Checkout.vue        # Página de checkout
+│   ├── /services                # Serviços para interação com o Supabase
+│   │   └── supabaseService.js   # Funções para chamar a API do Supabase
+│   ├── /store                  # Gerenciamento de estado (se necessário)
+│   │   └── index.js            # Configuração do estado global
+│   ├── /router                 # Configuração das rotas
+│   │   └── index.js            # Definições das rotas
+│   ├── /styles                 # Estilos globais e variáveis
+│   │   ├── main.css            # Estilo principal
+│   │   └── variables.css       # Variáveis de estilo
+│   ├── App.vue                 # Componente principal do aplicativo
+│   ├── main.js                 # Ponto de entrada do JavaScript
+│   └── utils.js                # Funções utilitárias
+│   └── supabaseClient.js       # Configuração do cliente Supabase
+├── /tests                      # Testes do projeto (se necessário)
+│   └── example.test.js         # Exemplo de arquivo de teste
+├── package.json                # Dependências e scripts do projeto
+├── vite.config.js              # Configurações do Vite
+└── README.md                   # Documentação do projeto
+```
