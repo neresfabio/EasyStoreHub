@@ -1,6 +1,6 @@
 # EasyStoreHub
 
-**Levantamento de Requisitos para Desenvolvimento de Site de Loja Virtual**  
+## Levantamento de Requisitos para Desenvolvimento de Site de Loja Virtual
 
 ### **Objetivo Geral**  
 Criar um site institucional para exibir produtos de uma loja, organizados por categorias, permitindo que clientes visualizem itens, calculem o valor total do pedido e finalizem a compra via WhatsApp. O sistema deve ser gerenciável de forma intuitiva, mesmo por usuários sem experiência técnica.  
@@ -73,7 +73,7 @@ Criar um site institucional para exibir produtos de uma loja, organizados por ca
 **Resultado Esperado:** Site funcional, de fácil manutenção, que permita ao cliente explorar produtos e fechar pedidos de forma ágil via WhatsApp.
 
 ---
-## Tecnologia
+## Tecnologias
 ### Client
 - **Vite.js**
 ### Backend as a Service (BaaS)
