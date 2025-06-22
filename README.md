@@ -87,7 +87,7 @@ Criar um site institucional para exibir produtos de uma loja, organizados por ca
 - Escalabilidade: A maioria das plataformas BaaS lida automaticamente com a escalabilidade, permitindo que o seu aplicativo cresça sem reconfigurações complexas.
 - Segurança: Recursos integrados para autenticação, proteção de dados e gerenciamento de usuários.
 ---
-## sugestões de rotas para o servidor:
+## Sugestões de rotas para o servidor:
 
 ### 🛒 Produtos (Catálogo)
 
