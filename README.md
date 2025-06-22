@@ -1,4 +1,4 @@
-# EasyStoreHub
+# 🚧 EasyStoreHub
 
 ## Levantamento de Requisitos para Desenvolvimento de Site de Loja Virtual
 
@@ -87,43 +87,317 @@ Criar um site institucional para exibir produtos de uma loja, organizados por ca
 - Escalabilidade: A maioria das plataformas BaaS lida automaticamente com a escalabilidade, permitindo que o seu aplicativo cresça sem reconfigurações complexas.
 - Segurança: Recursos integrados para autenticação, proteção de dados e gerenciamento de usuários.
 ---
-## Estrutura do projeto
+## sugestões de rotas para o servidor:
 
-```Plaintext
-/loja-institucional
-├── /public
-│   ├── favicon.ico            # Ícone do site
-│   └── index.html             # Arquivo HTML principal
-├── /src
-│   ├── /assets                 # Imagens, ícones e outros recursos estáticos
-│   │   ├── /images             # Imagens do site
-│   │   └── /icons              # Ícones (por exemplo, do FontAwesome)
-│   ├── /components             # Componentes reutilizáveis
-│   │   ├── Button.vue          # Botão personalizado
-│   │   ├── ProductCard.vue     # Cartão de produto
-│   │   ├── CartModal.vue       # Modal do carrinho de compras
-│   │   └── Header.vue          # Cabeçalho do site
-│   ├── /views                  # Páginas do site
-│   │   ├── Home.vue            # Página inicial
-│   │   ├── Products.vue        # Página de listagem de produtos
-│   │   ├── ProductDetail.vue    # Página de detalhes do produto
-│   │   └── Checkout.vue        # Página de checkout
-│   ├── /services                # Serviços para interação com o Supabase
-│   │   └── supabaseService.js   # Funções para chamar a API do Supabase
-│   ├── /store                  # Gerenciamento de estado (se necessário)
-│   │   └── index.js            # Configuração do estado global
-│   ├── /router                 # Configuração das rotas
-│   │   └── index.js            # Definições das rotas
-│   ├── /styles                 # Estilos globais e variáveis
-│   │   ├── main.css            # Estilo principal
-│   │   └── variables.css       # Variáveis de estilo
-│   ├── App.vue                 # Componente principal do aplicativo
-│   ├── main.js                 # Ponto de entrada do JavaScript
-│   └── utils.js                # Funções utilitárias
-│   └── supabaseClient.js       # Configuração do cliente Supabase
-├── /tests                      # Testes do projeto (se necessário)
-│   └── example.test.js         # Exemplo de arquivo de teste
-├── package.json                # Dependências e scripts do projeto
-├── vite.config.js              # Configurações do Vite
-└── README.md                   # Documentação do projeto
+### 🛒 Produtos (Catálogo)
+
+* `GET /produtos` – Listar todos os produtos
+* `GET /produtos/:id` – Obter detalhes de um produto específico
+* `POST /produtos` – Cadastrar um novo produto
+* `PUT /produtos/:id` – Editar um produto existente
+* `DELETE /produtos/:id` – Remover um produto
+
+### 📂 Categorias
+
+* `GET /categorias` – Listar todas as categorias
+* `GET /categorias/:id` – Obter detalhes de uma categoria específica
+* `POST /categorias` – Adicionar nova categoria
+* `PUT /categorias/:id` – Editar uma categoria existente
+* `DELETE /categorias/:id` – Remover uma categoria
+
+### 📈 Filtros e Disponibilidade (opcional)
+
+* `GET /produtos/categoria/:nome` – Listar produtos por categoria
+* `GET /produtos/disponiveis` – Listar apenas produtos disponíveis
+
+---
+
+### 🧩 Modelo de Dados (Simplificado)
+
+#### **Produto**
+
+```plaintext
+Produto {
+  id: UUID
+  nome: string
+  preco: number
+  categoriaId: UUID
+  imagemUrl: string
+  descricao: string
+  disponibilidade: boolean
+  criadoEm: Date
+  atualizadoEm: Date
+}
 ```
+
+#### **Categoria**
+
+```plaintext
+Categoria {
+  id: UUID
+  nome: string
+  criadoEm: Date
+  atualizadoEm: Date
+}
+```
+
+> Relacionamento:
+> Cada **Produto** pertence a **uma Categoria** (`categoriaId`), e uma **Categoria** pode ter **vários Produtos** (relacionamento 1\:N).
+
+---
+
+### 🔄 Fluxos de Interação (Resumido)
+
+#### 1. **Cadastro de Produto**
+
+1. Usuário acessa um formulário de criação.
+2. Backend oferece a lista de categorias disponíveis (`GET /categorias`).
+3. Usuário preenche os dados e envia (`POST /produtos`).
+4. Produto é salvo com vínculo à categoria selecionada.
+
+#### 2. **Edição de Produto**
+
+1. Usuário escolhe um produto para editar (`GET /produtos/:id`).
+2. Sistema pré-carrega os dados do produto + categorias.
+3. Após alteração, os dados são enviados (`PUT /produtos/:id`).
+
+#### 3. **Remoção de Produto**
+
+1. Usuário seleciona um produto e solicita exclusão (`DELETE /produtos/:id`).
+2. Sistema remove o produto (ou apenas marca como inativo, se desejar manter o histórico).
+
+#### 4. **Gestão de Categorias**
+
+* Adicionar: `POST /categorias`
+* Editar: `PUT /categorias/:id`
+* Remover: `DELETE /categorias/:id`
+
+> Dica: Antes de remover uma categoria, verificar se há produtos vinculados.
+
+#### 5. **Listagem de Produtos**
+
+* Página inicial: `GET /produtos` (com paginação ou filtro por categoria)
+* Detalhe de um produto: `GET /produtos/:id`
+* Filtro por categoria: `GET /produtos/categoria/:nome`
+
+---
+
+## 🚦 Início
+
+### 🧭 **Roteiro para Desenvolvimento das Telas - Catálogo de Produtos**
+
+#### 🧱 Etapa 1: Estrutura Base
+
+1. **Criar layout geral da aplicação**
+
+   * Header com nome/logo do site
+   * Barra de navegação com categorias (eletrônicos, roupas, acessórios etc.)
+   * Espaço central para exibição dos produtos
+   * Footer com informações gerais
+
+---
+
+#### 📂 Etapa 2: Tela - Página Inicial / Catálogo Geral
+
+* Mostrar todos os produtos disponíveis
+* Elementos:
+
+  * Filtro por categoria (pode ser um menu lateral ou um dropdown)
+  * Campo de busca
+  * Grade de produtos com:
+
+    * Imagem
+    * Nome do produto
+    * Preço
+    * Indicação de disponibilidade (Ex.: "Em estoque" ou "Indisponível")
+* Responsividade (celular, tablet, desktop)
+
+---
+
+#### 📄 Etapa 3: Tela - Página de Categoria Específica
+
+* Mostra apenas os produtos da categoria selecionada
+* Destaque o nome da categoria (ex.: "Roupas")
+* Pode reaproveitar o mesmo layout do catálogo geral, com filtro ativo
+
+---
+
+#### 🧾 Etapa 4: Tela - Detalhe do Produto (opcional, mas recomendado)
+
+* Mostra detalhes de um produto ao clicar nele
+* Elementos:
+
+  * Imagem grande
+  * Nome
+  * Descrição completa
+  * Preço
+  * Disponibilidade
+  * Botão “Voltar” ou “Adicionar ao carrinho” (se for o caso)
+
+---
+
+#### 📱 Etapa 5: Ajustes Visuais e Responsividade
+
+* Garantir que o site funcione bem em:
+
+  * Desktop
+  * Tablets
+  * Celulares
+* Ajustar fontes, espaçamentos, tamanhos de imagem etc.
+
+---
+
+#### 🧪 Etapa 6: Testes manuais
+
+* Testar cliques, filtros, categorias e busca
+* Verificar se todas as informações estão sendo exibidas corretamente
+
+---
+
+## 🛠️ Roteiro Técnico: Organização dos Componentes React para o Catálogo de Produtos
+
+### 📁 Estrutura de Pastas Sugerida
+
+```
+src/
+│
+├── assets/               # Imagens e arquivos estáticos
+├── components/           # Componentes reutilizáveis
+│   ├── Header.jsx
+│   ├── Footer.jsx
+│   ├── ProductCard.jsx
+│   ├── ProductList.jsx
+│   ├── CategoryFilter.jsx
+│   └── SearchBar.jsx
+│
+├── pages/                # Páginas do site
+│   ├── Home.jsx
+│   ├── CategoryPage.jsx
+│   └── ProductDetail.jsx
+│
+├── data/                 # Arquivos mock de dados (json)
+│   └── products.js
+│
+├── App.jsx
+└── main.jsx
+```
+
+---
+
+## 🧩 Componentes Detalhados
+
+### 🔹 `Header.jsx`
+
+* Contém logo + menu de navegação com categorias
+
+### 🔹 `Footer.jsx`
+
+* Informações como redes sociais, direitos autorais, etc.
+
+### 🔹 `SearchBar.jsx`
+
+* Campo de input com ícone de lupa
+* Prop: `onSearch(term)`
+
+### 🔹 `CategoryFilter.jsx`
+
+* Lista com os botões ou dropdown das categorias
+* Prop: `onSelectCategory(category)`
+
+### 🔹 `ProductCard.jsx`
+
+* Recebe os dados de um produto via props
+* Mostra:
+
+  * Imagem
+  * Nome
+  * Preço
+  * Disponibilidade
+
+### 🔹 `ProductList.jsx`
+
+* Renderiza um grid de vários `ProductCard`
+* Prop: `products=[]`
+
+---
+
+## 📄 Páginas
+
+### 🏠 `Home.jsx`
+
+* Mostra todos os produtos
+* Inclui:
+
+  * `SearchBar`
+  * `CategoryFilter`
+  * `ProductList`
+
+### 🗂️ `CategoryPage.jsx`
+
+* Filtra os produtos por categoria selecionada
+* Pode reutilizar `ProductList` e `CategoryFilter`
+
+### 🔍 `ProductDetail.jsx`
+
+* Exibe um único produto com detalhes completos
+
+---
+
+## 🧪 Exemplo de Arquivo de Dados (Mock)
+
+**`src/data/products.js`**
+
+```js
+export const products = [
+  {
+    id: 1,
+    name: "Smartphone XYZ",
+    description: "Um smartphone com ótimo desempenho.",
+    category: "Eletrônicos",
+    price: 1499.99,
+    available: true,
+    image: "/assets/smartphone.jpg"
+  },
+  {
+    id: 2,
+    name: "Camiseta Branca",
+    description: "Tecido 100% algodão.",
+    category: "Roupas",
+    price: 49.90,
+    available: false,
+    image: "/assets/camiseta.jpg"
+  },
+  // ...
+];
+```
+
+---
+
+## 🧭 Navegação com React Router (se for usar)
+
+**Exemplo de configuração simples em `App.jsx`**
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import CategoryPage from "./pages/CategoryPage";
+import ProductDetail from "./pages/ProductDetail";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/categoria/:categoria" element={<CategoryPage />} />
+        <Route path="/produto/:id" element={<ProductDetail />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+---
+
+
