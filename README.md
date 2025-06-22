@@ -76,7 +76,7 @@ Criar um site institucional para exibir produtos de uma loja, organizados por ca
 ## Tecnologias
 ### Client
 - **Vite.js + React**
-### Backend as a Service
+### Service
 - **Postgres**
 ---
 ## Sugestões de rotas para o servidor:
