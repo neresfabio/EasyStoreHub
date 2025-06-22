@@ -75,17 +75,9 @@ Criar um site institucional para exibir produtos de uma loja, organizados por ca
 ---
 ## Tecnologias
 ### Client
-- **Vite.js**
-### Backend as a Service (BaaS)
-- **Supabase**
-
-**Vantagens do BaaS**
-- Rede de Infraestrutura: Você não precisa se preocupar com a configuração de servidores e escalabilidade.
-
-- Economia de Tempo: As funcionalidades são prontamente disponíveis, permitindo que você se concentre mais na lógica do seu aplicativo.
-  
-- Escalabilidade: A maioria das plataformas BaaS lida automaticamente com a escalabilidade, permitindo que o seu aplicativo cresça sem reconfigurações complexas.
-- Segurança: Recursos integrados para autenticação, proteção de dados e gerenciamento de usuários.
+- **Vite.js + React**
+### Backend as a Service
+- **Postgres**
 ---
 ## Sugestões de rotas para o servidor:
 
