@@ -391,5 +391,10 @@ export default App;
 ```
 
 ---
+## Layout de Inspiração
+
+![image](https://github.com/user-attachments/assets/17f57133-9922-42ba-97cb-df51ae8ab00f)
+![image](https://github.com/user-attachments/assets/085da187-41c1-4617-b508-d8946dfcb21a)
+
 
 
